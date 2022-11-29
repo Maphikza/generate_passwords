@@ -51,7 +51,7 @@ class PasswordGenerator:
 
     def save_to_db(self):
         website = input("Enter Website: ").lower()
-        username_or_email = input("Username or email").lower()
+        username_or_email = input("Username or email: ").lower()
         password = self.generate_password()
         new_entry = {
             "websites": {
