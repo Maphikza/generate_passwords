@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 import os
-from random import choice, randint, shuffle
-import itertools
+from random import randint, shuffle
 from rich import print as rprint
+import string
 
 
 class PasswordGenerator:
@@ -30,20 +30,12 @@ class PasswordGenerator:
                 self.return_password(find_password)
 
     def generate_password(self):
-        letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                   'u',
-                   'v',
-                   'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-                   'Q',
-                   'R',
-                   'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-        numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-        symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-        password_letters = [choice(letters) for _ in range(randint(8, 10))]
-        password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
-        password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
-        password_list = list(itertools.chain(password_letters, password_symbols, password_numbers))
+        letters = [string.ascii_letters[randint(0, len(string.ascii_letters)-1)] for _ in range(8)]
+        symbols_raw = string.punctuation[:1] + string.punctuation[2:6] + string.punctuation[7:25]
+        symbols = [symbols_raw[randint(0, len(symbols_raw)-1)] for _ in range(2)]
+        numbers = [string.digits[randint(0, len(string.digits)-1)] for _ in range(3)]
+        password_list = letters + symbols + numbers
         shuffle(password_list)
 
         self.password = "".join(password_list)
