@@ -1,4 +1,3 @@
-import os
 from random import randint, shuffle
 from rich import print as rprint
 import string
